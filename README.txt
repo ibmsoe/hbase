@@ -28,3 +28,32 @@ The HBase mailing lists and archives are listed here [8].
 6. http://hbase.apache.org/docs/current/issue-tracking.html
 7. http://hbase.apache.org/docs/current/license.html
 8. http://hbase.apache.org/docs/current/mail-lists.html
+
+Prerequisite for Hbase shell
+----------------------------
+Hbase shell has a dependency on natively built jffi library file.
+This file comes embedded within jruby-complete.jar file. Maven usually 
+downloads it from online maven repository (which don't have the natively built 
+jffi library file for ppc64 & ppc64le) and installs it in local maven (.m2) 
+repository.
+
+So in ppc64 and ppc64le systems, building and installing jruby(more specifically 
+jruby-complete) locally is a prerequisite for Hbase.Below are the steps for building 
+and installing jruby-complete.
+
+git clone git@github.com:ibmsoe/jruby.git
+cd jruby/maven/jruby-complete
+mvn install
+
+
+Building Hbase 
+--------------
+
+MAVEN_OPTS="-Xmx3g" mvn clean install -DskipTests
+
+This is to build hbase and install the required dependencies in local maven repository.
+
+Inorder to create a tar distribution, do ( after the above "mvn ... ")
+
+MAVEN_OPTS="-Xmx3g" mvn install -DskipTests site assembly:single
+
