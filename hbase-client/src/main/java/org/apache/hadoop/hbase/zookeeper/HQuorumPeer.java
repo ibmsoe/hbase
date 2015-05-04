@@ -29,6 +29,7 @@ import org.apache.zookeeper.server.ServerConfig;
 import org.apache.zookeeper.server.ZooKeeperServerMain;
 import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
 import org.apache.zookeeper.server.quorum.QuorumPeerMain;
+import org.apache.zookeeper.server.admin.AdminServer.AdminServerException;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,7 +84,7 @@ public class HQuorumPeer {
     }
   }
 
-  private static void runZKServer(QuorumPeerConfig zkConfig) throws UnknownHostException, IOException {
+  private static void runZKServer(QuorumPeerConfig zkConfig) throws UnknownHostException, IOException, AdminServerException {
     if (zkConfig.isDistributed()) {
       QuorumPeerMain qp = new QuorumPeerMain();
       qp.runFromConfig(zkConfig);
